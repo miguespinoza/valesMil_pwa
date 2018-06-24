@@ -1,0 +1,20 @@
+{
+  "short_name": "Vales Mil",
+  "name": "Vales Mil",
+  "icons": [
+    {
+      "src": "card.png",
+      "sizes": "512x512 256x256 128x128 64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "card.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
