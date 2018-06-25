@@ -70,7 +70,7 @@ class BalanceCard extends Component {
                             {card.name}
                         </Typography>
                         <Typography component="p">
-                            balance is { balance || card.balance }
+                            Balance: { isLoading ? card.balance : balance }
                         </Typography>
                         {isLoading && <SyncIcon/>}
                     </CardContent>

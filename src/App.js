@@ -9,9 +9,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from 'react-router-dom'
 
 import Home from './components/home/Home';
-import Balance from './components/balance/Balance';
-import Settings from './components/settings/Settings';
-import cards from './components/home/BalanceCard';
 const history = createBrowserHistory()
 
 const styles = {
@@ -29,6 +26,7 @@ const styles = {
     flexWrap: 'wrap',
     display: 'flex',
     padding: '15px',
+    justifyContent: 'center',
   }
 };
 class App extends Component {
@@ -48,8 +46,6 @@ class App extends Component {
         <div className = {classes.content}>
           <Switch>
             <Route path="/" component={Home}/>
-            <Route path="/Settings" component={Settings}/>
-            <Route path="/Balance/:cardId" component={Balance}/>
           </Switch>
         </div>
         </React.Fragment>

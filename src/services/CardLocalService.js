@@ -25,7 +25,7 @@ class CardLocalService {
         })
         .then( balance => {
             const newCard = {...card, balance };
-            this.saveCard(newCard);
+            localStorage.setItem(card.id, JSON.stringify(newCard));
             return balance;
         })
         .catch(e => {
