@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 
-import CardLocalService from '../../services/CardLocalService';
+import CardDbService from '../../services/CardDbService';
 
 const styles = theme => ({
     paper: {
@@ -33,7 +33,7 @@ class DeleteModal extends React.Component {
 
     delete = () => {
         const {card} = this.props;
-        CardLocalService.deleteCard(this.props.card.id);
+        CardDbService.deleteCard(this.props.card.id);
         this.props.refreshCards();
         this.props.close();
     }

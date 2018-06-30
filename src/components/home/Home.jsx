@@ -4,24 +4,29 @@ import { withStyles } from '@material-ui/core/styles';
 import BalanceCard from './BalanceCard';
 import AddButton from './AddButton';
 import AddCardModal from './AddCardModal';
-import CardLocalService from '../../services/CardLocalService';
+import CardDbService from '../../services/CardDbService';
 import DeleteModal from './DeleteModal';
 
 class Home extends Component{
     constructor(props) {
         super(props)
-        const cards = CardLocalService.getAllCards();
         this.state = {
-            cards,
+            cards: [],
             isAddModalOpen: false,
             isCardModalOpen: false,
             selectedCard: null,
         };
+        CardDbService.onDbOpened = this.refreshCards;
+        CardDbService.init();
+
     }
     
     refreshCards = () => {
-        const cards = CardLocalService.getAllCards();
-        this.setState({cards});
+        CardDbService.getAllCards(event => {
+            console.log(event);
+            const cards = event.target.result;
+            this.setState({cards})
+        });
     }
 
     handleAddButton = () => this.setState({isAddModalOpen: !this.state.isAddModalOpen});

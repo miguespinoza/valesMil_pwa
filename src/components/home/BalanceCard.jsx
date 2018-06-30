@@ -12,7 +12,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import SyncIcon from '@material-ui/icons/Sync';
 
 import BalanceService from '../../services/BalanceService';
-import CardLocalService from '../../services/CardLocalService';
+import CardDbService from '../../services/CardDbService';
 
 
 const styles = ({
@@ -46,7 +46,11 @@ class BalanceCard extends Component {
     componentDidMount = () => {
         const { card } = this.props;
         this.setState({ isLoading: true });
-        const balanceRequest = CardLocalService.updateCardBalance(card);
+        const balanceRequest = CardDbService.updateCardBalance(card);
+        CardDbService.getCardBalanceHistory(card.id, (event => {
+            console.debug(event);
+            console.debug(event.target.result);
+        }));
         balanceRequest.then(balance => 
             this.setState({
             balance,

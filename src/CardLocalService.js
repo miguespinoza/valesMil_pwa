@@ -1,4 +1,4 @@
-import BalanceService from "./BalanceService";
+import BalanceService from "./services/BalanceService";
 
 class CardLocalService {
     saveCard = card => {

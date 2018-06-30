@@ -6,7 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 
-import CardLocalService from '../../services/CardLocalService';
+import CardDbService from '../../services/CardDbService';
 
 const styles = theme => ({
     paper: {
@@ -56,12 +56,13 @@ class AddCardModal extends React.Component {
         console.debug('saving Card');
         const {cardName, cardNumber, cardPassword} = this.state;
         if (!!cardName && !!cardNumber && !! cardPassword) {
-            CardLocalService.saveCard({
+            const card = {
                 id: uuidv4(),
                 name: cardName,
                 number: cardNumber,
                 password: cardPassword,
-            });
+            }
+            CardDbService.saveCard(card);
             console.debug('card saved');
         } else {
             console.debug('empty')
