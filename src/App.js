@@ -40,7 +40,6 @@ class App extends Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               Vales mil
             </Typography>
-            <Link to = '/Settings' style={{color: '#fff'}}><SettingsIcon/> </Link>
           </Toolbar>
         </AppBar>
         <div className = {classes.content}>

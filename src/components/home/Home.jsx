@@ -18,7 +18,6 @@ class Home extends Component{
         };
         CardDbService.onDbOpened = this.refreshCards;
         CardDbService.init();
-
     }
     
     refreshCards = () => {

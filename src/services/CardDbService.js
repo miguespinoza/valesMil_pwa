@@ -1,4 +1,5 @@
 import moment from 'moment';
+import currency from 'currency.js';
 
 import BalanceService from './BalanceService';
 
@@ -103,14 +104,14 @@ class CardDbService{
             password: card.password,
         })
         .then( balanceText => {
-            const balance = Number(balanceText.match(/\d+/g).map(Number));
+            const balance = currency(balanceText);
             const tx = this.getWriteTx(['BalanceStore']);
             const store = tx.objectStore('BalanceStore');
             const today = moment();
-            const request = store.add({ timestamp: today.format("l"), balance, cardId: card.id });
+            const request = store.add({ timestamp: today.format("l"), balance: balance.value, cardId: card.id });
             request.onsuccess = (e) => { console.debug('balance saved'); }
             request.onerror = (e) => {  console.error('error'); }
-            return balance;
+            return balance.value;
         })
         .catch(e => {
             console.error('asdas')

@@ -7,7 +7,7 @@ class BalanceService{
     getBalance = ({
         card,
         password,
-    })=> fetch( fakeAPI, {
+    })=> fetch( realAPI, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
