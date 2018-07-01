@@ -32,40 +32,16 @@ const data = {
 };
 
 class BalanceHistoryChart extends React.Component{
-    
-    constructor(props){
-        super(props);
-
-        this.state = {
-            history: [],
-            chartData: {},
-        }
-    }
-
-    componentDidMount = () => {
-        const {card} = this.props;
-        CardDbService.getCardBalanceHistory(card.id, (event => {
-            const balanceHistory = event.target.result;
-            console.debug(balanceHistory)
-            this.setState({
-                history: balanceHistory,
-            })
-            const labels = balanceHistory.map( b => b.timestamp);
-            const data = balanceHistory.map( b => b.balance);
-            this.setState({
-                chartData: {labels, datasets: [ {...defaultDataset, data}]}
-            })
-        }));
-    }
-    
-
     render() {
+        const { balanceHistory } = this.props;
+        const labels = balanceHistory.map( b => b.timestamp);
+        const data = balanceHistory.map( b => b.balance);
         return (
         <div>
             <Typography gutterBottom variant="headline" component="h3">
                 Balance history
             </Typography>
-            <Line data={this.state.chartData} />
+            <Line data={{labels, datasets: [ {...defaultDataset, data}]}} />
         </div>
         );
     }

@@ -38,9 +38,9 @@ class BalanceCard extends Component {
         super(props)
 
         this.state = {
-            balance: 0,
             isLoading: true,
             enableStatistics: false,
+            balanceHistory: [],
         };
     }
 
@@ -58,11 +58,19 @@ class BalanceCard extends Component {
             isLoading: false,
             })
         );
+
+        CardDbService.getCardBalanceHistory(card.id, (event => {
+            const balanceHistory = event.target.result;
+            this.setState({ balanceHistory })
+        }));
     }
 
     render () {
         const { classes, card, openCardModal } = this.props;
-        const { isLoading, balance, enableStatistics } = this.state;
+        const { isLoading, balance, enableStatistics, balanceHistory } = this.state;
+        const LastBalance = balanceHistory.length > 0 ?
+            balanceHistory[balanceHistory.length - 1].balance :
+            0.0;
         return (
                 <Card className={classes.card}>
                     <CardMedia
@@ -75,10 +83,11 @@ class BalanceCard extends Component {
                             {card.name}
                         </Typography>
                         <Typography component="p">
-                            Balance: { isLoading ? card.balance : balance }
+                            Balance: { isLoading ? LastBalance : balance }
                         </Typography>
                         {isLoading && <SyncIcon/>}
-                        {enableStatistics && <BalanceHistoryChart card = {card}/>}
+                        {enableStatistics &&
+                            <BalanceHistoryChart balanceHistory = {balanceHistory} card = {card}/>}
                     </CardContent>
                     <CardActions>
                         <Button onClick = {this.toggleStatistics} size="small" color="primary">
