@@ -27,8 +27,8 @@ const defaultDataset = {
 }
 
 const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: []
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: []
 };
 
 class BalanceHistoryChart extends React.Component{
@@ -50,10 +50,11 @@ class BalanceHistoryChart extends React.Component{
             this.setState({
                 history: balanceHistory,
             })
-            //data.datasets.push({...defaultDataset, data: })
-            //this.setState({
-            //    chartData: {...data, }
-            //})
+            const labels = balanceHistory.map( b => b.timestamp);
+            const data = balanceHistory.map( b => b.balance);
+            this.setState({
+                chartData: {labels, datasets: [ {...defaultDataset, data}]}
+            })
         }));
     }
     
@@ -64,7 +65,7 @@ class BalanceHistoryChart extends React.Component{
             <Typography gutterBottom variant="headline" component="h3">
                 Balance history
             </Typography>
-            <Line data={data} />
+            <Line data={this.state.chartData} />
         </div>
         );
     }

@@ -17,13 +17,7 @@ class BalanceService{
             password,
         }),
     })
-        .then(r => {
-            debugger;
-            const s = String(r.text());
-            const n = Number(s.match(/\d+/g).map(Number))
-            debugger;
-            return n;
-        })
+        .then(r => r.text())
         .catch(error => {
             console.error(error);
             throw error;

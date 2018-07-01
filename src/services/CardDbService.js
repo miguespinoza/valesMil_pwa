@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import BalanceService from './BalanceService';
 
 // service intended to save the cards data using IndexedDB
@@ -100,12 +102,14 @@ class CardDbService{
             card: card.number,
             password: card.password,
         })
-        .then( balance => {
+        .then( balanceText => {
+            const balance = Number(balanceText.match(/\d+/g).map(Number));
             const tx = this.getWriteTx(['BalanceStore']);
             const store = tx.objectStore('BalanceStore');
-            const request = store.add({ timestamp: new Date(), balance, cardId: card.id });
+            const today = moment();
+            const request = store.add({ timestamp: today.format("l"), balance, cardId: card.id });
             request.onsuccess = (e) => { console.debug('balance saved'); }
-            request.onerror = (e) => {  console.error(e); }
+            request.onerror = (e) => {  console.error('error'); }
             return balance;
         })
         .catch(e => {
