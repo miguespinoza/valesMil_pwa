@@ -29,7 +29,7 @@ const styles = ({
     },
     media: {
         height: 0,
-        paddingTop: '15%', // 16:9
+        paddingTop: '30%',
     },
 });
 
@@ -67,7 +67,7 @@ class BalanceCard extends Component {
                 <Card className={classes.card}>
                     <CardMedia
                         className={classes.media}
-                        image="./card2.png"
+                        image="./cards/credit-card-gold.svg"
                         title="Contemplative Reptile"
                     />
                     <CardContent>
