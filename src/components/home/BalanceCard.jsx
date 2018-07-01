@@ -13,6 +13,7 @@ import SyncIcon from '@material-ui/icons/Sync';
 
 import BalanceService from '../../services/BalanceService';
 import CardDbService from '../../services/CardDbService';
+import BalanceHistoryChart from './BalanceHistoryChart';
 
 
 const styles = ({
@@ -39,18 +40,18 @@ class BalanceCard extends Component {
         this.state = {
             balance: 0,
             isLoading: true,
+            enableStatistics: false,
         };
     }
+
+    toggleStatistics = () => this.setState({enableStatistics: !this.state.enableStatistics})
 
 
     componentDidMount = () => {
         const { card } = this.props;
         this.setState({ isLoading: true });
         const balanceRequest = CardDbService.updateCardBalance(card);
-        CardDbService.getCardBalanceHistory(card.id, (event => {
-            console.debug(event);
-            console.debug(event.target.result);
-        }));
+        
         balanceRequest.then(balance => 
             this.setState({
             balance,
@@ -61,7 +62,7 @@ class BalanceCard extends Component {
 
     render () {
         const { classes, card, openCardModal } = this.props;
-        const { isLoading, balance } = this.state;
+        const { isLoading, balance, enableStatistics } = this.state;
         return (
                 <Card className={classes.card}>
                     <CardMedia
@@ -77,9 +78,10 @@ class BalanceCard extends Component {
                             Balance: { isLoading ? card.balance : balance }
                         </Typography>
                         {isLoading && <SyncIcon/>}
+                        {enableStatistics && <BalanceHistoryChart card = {card}/>}
                     </CardContent>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button onClick = {this.toggleStatistics} size="small" color="primary">
                             Statistics
                         </Button>
                         <IconButton onClick = {() => openCardModal(card)}>

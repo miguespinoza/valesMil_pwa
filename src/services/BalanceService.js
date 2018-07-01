@@ -18,7 +18,12 @@ class BalanceService{
         }),
     })
         .then(r => {
-            return r.text()})
+            debugger;
+            const s = String(r.text());
+            const n = Number(s.match(/\d+/g).map(Number))
+            debugger;
+            return n;
+        })
         .catch(error => {
             console.error(error);
             throw error;
