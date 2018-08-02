@@ -114,7 +114,7 @@ class CardDbService{
             return balance.value;
         })
         .catch(e => {
-            console.error('asdas')
+            throw e;
         });
 
         

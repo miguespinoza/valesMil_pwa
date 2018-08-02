@@ -8,17 +8,15 @@ class BalanceService{
         card,
         password,
     })=> {
-        console.log(`card: ${card} = password: ${password}`);
         return axios.post(realAPI,
             {card, password},
             {headers: {'Content-Type': 'application/json'}}
         )
         .then(r => r.data)
         .catch(error => {
-            console.error(error);
             throw error;
         })
     }
 }
 
-export default new BalanceService();
+export default new BalanceService();c

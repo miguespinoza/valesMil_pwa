@@ -39,6 +39,7 @@ class BalanceCard extends Component {
 
         this.state = {
             isLoading: true,
+            balanceError: false,
             enableStatistics: false,
             balanceHistory: [],
         };
@@ -59,6 +60,10 @@ class BalanceCard extends Component {
             balanceHistory: [...this.state.balanceHistory,
                 { timestamp: moment().format("l"), balance }]
             })
+        ).catch(error =>
+            this.setState({
+                balanceError: true,
+            })
         );
 
         CardDbService.getCardBalanceHistory(card.id, (event => {
@@ -67,12 +72,28 @@ class BalanceCard extends Component {
         }));
     }
 
-    render () {
-        const { classes, card, openCardModal } = this.props;
+    renderBalance = () => {
+        const { card } = this.props;
         const { isLoading, balance, enableStatistics, balanceHistory } = this.state;
         const LastBalance = balanceHistory.length > 0 ?
             balanceHistory[balanceHistory.length - 1].balance :
             0.0;
+        return 
+        <React.Fragment>
+            <Typography component="p">
+                Balance: { isLoading ? LastBalance : balance }
+            </Typography>
+            { isLoading && <Spinner/> }
+            { enableStatistics &&
+                <BalanceHistoryChart balanceHistory = {balanceHistory} card = {card}/> }
+        </React.Fragment>
+        
+    }
+        
+
+    render () {
+        const { classes, card, openCardModal } = this.props;
+        const { balanceError } = this.state;
         return (
                 <Card className={classes.card}>
                     <CardMedia
@@ -81,15 +102,14 @@ class BalanceCard extends Component {
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="headline" component="h2">
-                            {card.name}
-                        </Typography>
-                        <Typography component="p">
-                            Balance: { isLoading ? LastBalance : balance }
-                        </Typography>
-                        {isLoading && <Spinner/>}
-                        {enableStatistics &&
-                            <BalanceHistoryChart balanceHistory = {balanceHistory} card = {card}/>}
+                            <Typography gutterBottom variant="headline" component="h2">
+                                {card.name}
+                            </Typography>
+                        { balanceError ?
+                            <Typography component="p">
+                                Authentication Error
+                            </Typography> : this.renderBalance()
+                        }
                     </CardContent>
                     <CardActions>
                         <Button onClick = {this.toggleStatistics} size="small" color="primary">

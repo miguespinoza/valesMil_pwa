@@ -29,7 +29,7 @@ class CardLocalService {
             return balance;
         })
         .catch(e => {
-            console.error('asdas')
+            throw e;
         });
     deleteCard = id => {
         localStorage.removeItem(id);
