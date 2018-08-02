@@ -9,11 +9,11 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
-import SyncIcon from '@material-ui/icons/Sync';
+import moment from 'moment';
 
-import BalanceService from '../../services/BalanceService';
 import CardDbService from '../../services/CardDbService';
 import BalanceHistoryChart from './BalanceHistoryChart';
+import Spinner from '../Spinner';
 
 
 const styles = ({
@@ -56,6 +56,8 @@ class BalanceCard extends Component {
             this.setState({
             balance,
             isLoading: false,
+            balanceHistory: [...this.state.balanceHistory,
+                { timestamp: moment().format("l"), balance }]
             })
         );
 
@@ -85,7 +87,7 @@ class BalanceCard extends Component {
                         <Typography component="p">
                             Balance: { isLoading ? LastBalance : balance }
                         </Typography>
-                        {isLoading && <SyncIcon/>}
+                        {isLoading && <Spinner/>}
                         {enableStatistics &&
                             <BalanceHistoryChart balanceHistory = {balanceHistory} card = {card}/>}
                     </CardContent>
