@@ -19,4 +19,4 @@ class BalanceService{
     }
 }
 
-export default new BalanceService();c
+export default new BalanceService();
