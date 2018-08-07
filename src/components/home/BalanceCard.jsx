@@ -62,6 +62,7 @@ class BalanceCard extends Component {
             })
         ).catch(error =>
             this.setState({
+                isLoading: false,
                 balanceError: true,
             })
         );
@@ -78,15 +79,16 @@ class BalanceCard extends Component {
         const LastBalance = balanceHistory.length > 0 ?
             balanceHistory[balanceHistory.length - 1].balance :
             0.0;
-        return 
-        <React.Fragment>
+        return (
+        <div>
             <Typography component="p">
                 Balance: { isLoading ? LastBalance : balance }
             </Typography>
-            { isLoading && <Spinner/> }
+            {isLoading && <Spinner/>}
             { enableStatistics &&
                 <BalanceHistoryChart balanceHistory = {balanceHistory} card = {card}/> }
-        </React.Fragment>
+        </div>
+        );
         
     }
         
@@ -105,11 +107,11 @@ class BalanceCard extends Component {
                             <Typography gutterBottom variant="headline" component="h2">
                                 {card.name}
                             </Typography>
-                        { balanceError ?
-                            <Typography component="p">
+                        { balanceError &&
+                            <Typography component="p" style = {{color: 'red'}}>
                                 Authentication Error
-                            </Typography> : this.renderBalance()
-                        }
+                        </Typography> }
+                        { !balanceError && this.renderBalance() }
                     </CardContent>
                     <CardActions>
                         <Button onClick = {this.toggleStatistics} size="small" color="primary">
