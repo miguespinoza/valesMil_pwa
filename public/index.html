@@ -1,16 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/card.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/card.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+    />
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBdywjhokDZEBnI7WLJxbDNkPPtYCRFzHc",
+        authDomain: "valesmil-5bc1e.firebaseapp.com",
+        databaseURL: "https://valesmil-5bc1e.firebaseio.com",
+        projectId: "valesmil-5bc1e",
+        storageBucket: "valesmil-5bc1e.appspot.com",
+        messagingSenderId: "799935025793",
+        appId: "1:799935025793:web:39833aeb8a9a8513"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+      (function(sa, fbc) {
+        function load(f, c) {
+          var a = document.createElement("script");
+          a.async = 1;
+          a.src = f;
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(a, s);
+        }
+        load(sa);
+        window.onload = function() {
+          firebase.initializeApp(fbc).performance();
+        };
+      })(performance_standalone, firebaseConfig);
+    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
