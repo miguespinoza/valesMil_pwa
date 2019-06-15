@@ -38,7 +38,7 @@ class App extends Component {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              Vales mil
+              The Vales mil
             </Typography>
           </Toolbar>
         </AppBar>
