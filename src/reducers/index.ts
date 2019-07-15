@@ -1,7 +1,7 @@
 
 import { createReducer, combineReducers } from "redux-starter-kit";
 
-import { balanceReceived, balanceRequested } from "../actions"
+import { balanceReceived, balanceRequested, cardCreated } from "../actions"
 
 
 const balanceReducer = createReducer({}, {
@@ -25,4 +25,13 @@ const isLoadingReducer = createReducer({}, {
   }  
 })
 
-export default combineReducers({balance: balanceReducer, isLoading: isLoadingReducer})
+const cardsReducer = createReducer({}, {
+  [cardCreated.toString()]: (state: any, action: any) => {
+    const {id, password, name} = action.payload;
+    state[id] = {id, password, name};
+    return state;
+  } 
+})
+
+
+export default combineReducers({balance: balanceReducer, isLoading: isLoadingReducer, cards: cardsReducer})

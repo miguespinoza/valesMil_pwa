@@ -3,6 +3,7 @@ import { createCycleMiddleware } from 'redux-cycles';
 import {run} from '@cycle/run';
 import {makeHTTPDriver} from '@cycle/http';
 import {timeDriver} from '@cycle/time';
+import makeIdbDriver from 'cycle-idb'
 
 import rootReducer from './reducers';
 import rootCycle from './cycles';
@@ -23,6 +24,12 @@ export default function configureStore() {
     STATE: makeStateDriver(),
     Time: timeDriver,
     HTTP: makeHTTPDriver(),
+    IDB: makeIdbDriver('cards-db', 1, (upgradeDb: any) => {
+      // Creates a new store in the database
+      upgradeDb.createObjectStore('CardStore', {keyPath: "id"})
+      const balanceStore = upgradeDb.createObjectStore("BalanceStore", {autoIncrement: true})
+      balanceStore.createIndex('cardId', 'cardId', {unique: false});
+  })
   })
 
   return store;
