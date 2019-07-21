@@ -20,6 +20,7 @@ import TextField from "@material-ui/core/TextField";
 
 import BalanceCard from "./BalanceCard";
 import Card from "../types/card";
+import balanceService from "../services/balanceService"
 
 type Props = {};
 
@@ -75,6 +76,15 @@ const Dashboard: React.FC<Props> = () => {
     setCardName("");
     setOpen(false);
   };
+
+  useEffect(()=>{
+    dispatch({
+      type: "balance_REQUEST_CYCLE",
+      payload: {
+        request: balanceService.makeBalanceRequest({card: 11551515, password: "password"})
+      }
+    })
+  })
 
   return (
     <div>

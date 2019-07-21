@@ -6,7 +6,7 @@ const BalanceService = {
       url: fakeAPI,
       method: "POST",
       send: { card, password },
-      category: "balance"
+      category: "http_request_cycle",
   })
 };
 
