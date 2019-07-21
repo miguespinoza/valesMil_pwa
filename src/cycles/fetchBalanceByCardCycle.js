@@ -25,7 +25,6 @@ export function fetchBalanceByCard(sources) {
 
   const balanceUpdateAction$ = balanceHTTPResponse$
     .map(r => {
-      debugger;
       if(r.error){
         toast.error(r.text)
         return actions.balanceRequestFailed({ cardId: r.request.send.card, error: r})

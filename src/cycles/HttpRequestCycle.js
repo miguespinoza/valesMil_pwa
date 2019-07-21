@@ -24,7 +24,7 @@ export function httpRequestCycle(sources) {
   );
 
   const HTTPrequest$ = request_action$.map(
-    ra => ({ ...ra.payload.request, _CYCLE_ACTION: ra.type })
+    ra => ({ ...ra.payload.request, _CYCLE_ACTION_TYPE: ra.type })
   );
 
   const HTTPResponseAction$ = sources.HTTP
@@ -38,12 +38,11 @@ export function httpRequestCycle(sources) {
       const response = {...r};
       delete response.request;
       const request = Object.assign({}, r.request);
-      delete request._CYCLE_ACTION;
-      debugger;
+      delete request._CYCLE_ACTION_TYPE;
       if(r.error){
-        return makeFailureAction(r.request._CYCLE_ACTION, { response, request })
+        return makeFailureAction(r.request._CYCLE_ACTION_TYPE, { response, request })
       } else {
-        return makeSuccessAction(r.request._CYCLE_ACTION, { response, request })
+        return makeSuccessAction(r.request._CYCLE_ACTION_TYPE, { response, request })
       }
     })
 
