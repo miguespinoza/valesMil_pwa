@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.miguespinoza.twa.valesMil",
+      "sha256_cert_fingerprints": [
+        "DB:8C:F8:C1:DE:A3:37:EA:1B:4D:0B:EC:6F:2E:4F:FA:64:6A:77:2F:2B:A6:5A:32:3E:F3:3E:D1:E5:F8:89:D6"
+      ]
+    }
+  }
+]
